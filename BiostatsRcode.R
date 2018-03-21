@@ -113,7 +113,7 @@ f2 <- function(n, piE, piC, numsim = 1000){
   
 }
 
-f2(300, piE, piC, numsim = 1000) #0.092
+f2(100, piE, piC, numsim = 1000)
 
 piE <- 0.35
 piC <- 0.4
