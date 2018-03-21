@@ -73,19 +73,19 @@ plot(seq(100,2000,by=100),z)
 #f1() to represent this sequential testing scenario, and repeat the exercises
 #above. What would be the impact on the power and type 1 error?
 
-f2 <- function(n, piE, piC, numsim = 1000){
+f2 <- function(n, piE, piC, numsim = 1000,alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE)
   sC <- rbinom(numsim, (0.5*n), piC)
   pvals <- sapply(1:numsim, FUN = function(i) prop.test(x = c(sE[i], sC[i]), n = c((0.5*n), (0.5*n)),
                                                         alternative = "less")$p.value)
   
-  n.signif <- mean(pvals < 0.025)
-  fulltrial <- sum((pvals > 0.025) == TRUE)
+  n.signif <- mean(pvals < alpha)
+  fulltrial <- sum((pvals > alpha) == TRUE)
 
   nonsig <- numeric(0)
   
   for(i in 1:numsim){
-    if(pvals[i] < 0.025){
+    if(pvals[i] < alpha){
      nonsig[i] <- 0
     }
     else{
@@ -106,14 +106,16 @@ f2 <- function(n, piE, piC, numsim = 1000){
   
   pvals2 <- sapply(1:length(sEt), FUN = function(i) prop.test(x = c(sEt[i], sCt[i]), n = c(n, n),
                                                         alternative = "less")$p.value)
-  n.signif.retrial <- mean(pvals2 < 0.025)
+  n.signif.retrial <- mean(pvals2 < alpha)
   n.signif2 <- (n.signif.retrial*(fulltrial/numsim))
   
   n.signif+n.signif2
   
 }
 
-f2(100, piE, piC, numsim = 1000)
+f2(1500, piE, piC, numsim = 1000) # 0.549
+f1(1500, piE, piC, numsim = 1000) # 0.792
+#power drops quite a bit..
 
 piE <- 0.35
 piC <- 0.4
@@ -131,6 +133,21 @@ abline(h=0.8,col="red")
 
 #####QUESTION 4######
 
-#What is the impact of choosing ??=0.001 for the interim analysis (i.e. only
+#What is the impact of choosing a=0.001 for the interim analysis (i.e. only
 #halting the trial early if the evidence in favour of the experimental treatment
 #is very clear)?
+
+
+piE <- 0.35
+piC <- 0.4
+seq(100,2000,by=100)
+y <- NULL
+for (n in seq(100,2000,by=100)){
+  y[n] <- (f2(n, piE, piC, numsim = 1000,alpha=0.001))
+}
+
+y <- y[seq(100,2000,by=100)]
+y
+
+plot(seq(100,2000,by=100),y)
+abline(h=0.8,col="red")
