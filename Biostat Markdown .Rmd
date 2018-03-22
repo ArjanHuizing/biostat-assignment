@@ -148,13 +148,12 @@ f1(1500, piE, piC, numsim = 1000) # 0.792
 
 piE <- 0.35
 piC <- 0.4
-seq(100,2000,by=100)
 y <- NULL
-for (n in seq(100,2000,by=100)){
+for (n in numbs){
   y[n] <- (f2(n, piE, piC, numsim = 1000))
 }
 
-y <- y[seq(100,2000,by=100)]
+y <- y[numbs]
 y
 ```
 
