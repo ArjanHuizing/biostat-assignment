@@ -136,12 +136,12 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   # same procedure for the control groups
   r.sC <- nonsig*sC
   r.sC <- r.sC[!r.sC %in% 0]
-  sC2 <- rbinom(fulltrial, (0.5*n), piE)
+  sC2 <- rbinom(fulltrial, (0.5*n), piC)
   sCt <- (r.sC+sC2)
   
   pvals2 <- sapply(1:length(sEt), FUN = function(i) prop.test(x = c(sEt[i], sCt[i]), n = c(n, n),
                                                         alternative = "less")$p.value)
-  n.signif.retrial <- mean(pvals2 < alpha)
+  n.signif.retrial <- mean(pvals2 < 0.025)
   n.signif2 <- (n.signif.retrial*(fulltrial/numsim))
   
   n.signif + n.signif2
@@ -153,15 +153,18 @@ f1(1500, piE, piC, numsim = 1000)
 
 piE <- 0.35
 piC <- 0.4
-y <- NULL
+v <- NULL
 for (n in numbs){
-  y[n] <- (f2(n, piE, piC, numsim = 1000))
+  v[n] <- (f2(n, piE, piC, numsim = 1000))
 }
 
-y <- y[numbs]
-y
-```
+v <- v[numbs]
 
+```
+```{r}
+plot(numbs, y, col="blue", pch="o")
+points(numbs, v, col="dark red", pch="*")
+```
 > Write answer here...
 
 ***
@@ -173,15 +176,21 @@ y
 ```{r, results ='hide'}
 piE <- 0.35
 piC <- 0.4
-y <- NULL
+w <- NULL
 
 set.seed(42)
 for (n in numbs){
-  y[n] <- (f2(n, piE, piC, numsim = 1000, alpha=0.001))
+  w[n] <- (f2(n, piE, piC, numsim = 1000, alpha=0.001))
 }
 
-y <- y[numbs]
-y
+w <- w[numbs]
+
 ```
 
 > Write answer here..
+
+```{r}
+plot(numbs, y, col="blue", pch="o")
+points(numbs, v, col="dark red", pch="*")
+points(numbs, w, col="black", pch="+")
+```
