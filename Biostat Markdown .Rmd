@@ -22,7 +22,7 @@ pre code, pre, code {
 
 Suppose an investigator wishes to conduct a trial to show superiority of a novel treatment E against some control treatment C. The outcome of interest is a dichotomous event, with *1* representing a negative outcome (e.g. all-cause mortality) and *0* representing a positive outcome, after a fixed follow-up duration. The investigator hopes to find that the event rate will drop from 0.4 to at least 0.35 when patients are treated with treatment E as opposed to treatment C. You are asked to determine the required sample size.
 
-Assume that (1) the outcome is (in each group) binomially distributed, (2) trial dropout can be ignored, (3) the two groups are to be of equal size, (4) the test is to be performed one-sided with nominal type 1 error ??=0.025.
+Assume that (1) the outcome is (in each group) binomially distributed, (2) trial dropout can be ignored, (3) the two groups are to be of equal size, (4) the test is to be performed one-sided with nominal type 1 error alpha=0.025.
 
 Although, in practice, you would most likely use a function such as the R function power.prop.test(), here we will use a simple simulation study to estimate the power (as well as the empirical type 1 error) for a range of sample sizes.
 
@@ -45,6 +45,7 @@ f1 <- function(n, piE, piC, numsim = 1000){
 
 
 #### Question 1
+
 **Run f1() for n=100,200,300,...,2000. Store the output and plot the power curve. Note: warning messages due to low expected values can be ignored. Based on this initial assessment, how many subjects are (approximately) needed in each treatment arm to obtain a power of 0.80?**
 
 First we define an input. Since the power is defined as the probability that we will reject a false null hypothesis. We have to set the input such that the alternative hypothesis is true.
@@ -52,32 +53,31 @@ First we define an input. Since the power is defined as the probability that we 
 ```{r, results ='hide'}
 piE <- 0.35
 piC <- 0.4
-numbs <- seq(100, 2000, by=100) # defines our sequence for n = (100,200,300,...2000)
-y <- NULL
 ```
-
 
 Then we run the given function to determine the power.
 
 ```{r, results ='hide'}
 set.seed(42) # we set a seed so we can fairly compare each simulation
+numbs <- seq(100, 2000, by=100) # defines our sequence for n = (100,200,300,...2000)
+y <- NULL
 for (n in numbs){
  y[n] <- (f1(n, piE, piC, numsim = 1000))
 }
-
 y <- y[numbs]
 ```
 
-The following plot depicts the power depending on the sample size in each arm of the trial
+The following plot depicts the power depending on the sample size in each arm of the trial. The red line represents where we expect a power of about .80. 
 
 ```{r}
 plot(numbs, y)
 abline(h=0.8, col="red")
 ```
 
-The red line represents where we expect a power of about .80. This is the case with about 1500 participants.
+> For a power of .80, we will need about 1500 participants.
 
 #### Question 2
+
 **The function f1() can also be used to obtain the empirical type 1 error rate. Run f1() again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
 
 The type 1 error is the incorrect rejection of a true null hypothesis. Hence, if the null hypothesis is true piE must be the sam as piC, so both 0.4.
@@ -99,6 +99,7 @@ plot(numbs, z)
 
 
 #### Question 3
+
 **Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same ?? of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
 ```{r}
@@ -157,10 +158,10 @@ y <- y[numbs]
 y
 ```
 
-
-Write answer here...
+> Write answer here...
 
 #### Question 4
+
 **What is the impact of choosing ??=0.001 for the interim analysis (i.e. only halting the trial early if the evidence in favour of the experimental treatment is very clear)?**
 
 ```{r, results ='hide'}
@@ -177,5 +178,4 @@ y <- y[numbs]
 y
 ```
 
-
-Write answer here..
+> Write answer here..
