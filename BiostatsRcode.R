@@ -100,7 +100,7 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   
   r.sC <- nonsig*sC
   r.sC <- r.sC[!r.sC %in% 0]
-  sC2 <- rbinom(fulltrial, (0.5*n), piE)
+  sC2 <- rbinom(fulltrial, (0.5*n), piC)
   sCt <- (r.sC+sC2)
 
   
