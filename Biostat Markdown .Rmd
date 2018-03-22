@@ -160,13 +160,8 @@ y <- y[seq(100,2000,by=100)]
 y
 ```
 
-Guess what, one more plot!
 
-```{r}
-plot(numbs, y)
-abline(h=0.8, col="red")
-```
-
+Write answer here...
 
 #### Question 4
 **What is the impact of choosing ??=0.001 for the interim analysis (i.e. only halting the trial early if the evidence in favour of the experimental treatment is very clear)?**
@@ -185,10 +180,5 @@ y <- y[numbs]
 y
 ```
 
-Okay, one last plot..
 
-```{r}
-plot(numbs, y)
-abline(h=0.8, col="red")
-```
-
+Write answer here..
