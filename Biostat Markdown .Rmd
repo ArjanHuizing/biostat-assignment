@@ -47,7 +47,7 @@ f1 <- function(n, piE, piC, numsim = 1000){
 #### Question 1
 **Run f1() for n=100,200,300,...,2000. Store the output and plot the power curve. Note: warning messages due to low expected values can be ignored. Based on this initial assessment, how many subjects are (approximately) needed in each treatment arm to obtain a power of 0.80?**
 
-```{r, message=FALSE}
+```{r, results ='hide'}
 piE <- 0.35
 piC <- 0.4
 numbs <- seq(100, 2000, by=100)
@@ -75,7 +75,7 @@ abline(h=0.8, col="red")
 #### Question 2
 **The function f1() can also be used to obtain the empirical type 1 error rate. Run f1() again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
 
-```{r, message = FALSE}
+```{r, results ='hide'}
 z <- NULL
 for (n in numbs){
   z[n] <- (f1(n, 0.4, 0.4, numsim = 1000))
@@ -94,7 +94,7 @@ plot(numbs, z)
 #### Question 3
 **Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same ?? of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
-```{r, message=FALSE}
+```{r, results ='hide'}
 f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE)
   sC <- rbinom(numsim, (0.5*n), piC)
@@ -161,7 +161,7 @@ abline(h=0.8, col="red")
 #### Question 4
 **What is the impact of choosing ??=0.001 for the interim analysis (i.e. only halting the trial early if the evidence in favour of the experimental treatment is very clear)?**
 
-```{r, message=FALSE}
+```{r, results ='hide'}
 piE <- 0.35
 piC <- 0.4
 y <- NULL
