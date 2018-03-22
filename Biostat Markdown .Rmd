@@ -70,7 +70,7 @@ y <- y[numbs]
 The following plot depicts the power depending on the sample size in each arm of the trial. The red line represents where we expect a power of about .80. 
 
 ```{r}
-plot(numbs, y)
+plot(numbs, y,xlab="Sample Size",ylab="Empirical Power")
 abline(h=0.8, col="red")
 ```
 
@@ -96,7 +96,7 @@ z <- z[numbs]
 This plot shows our type 1 error depending on the sample size.
 
 ```{r}
-plot(numbs, z)
+plot(numbs, z,xlab="Sample Size",ylab="False Rejection Rate")
 ```
 
 > Maybe say something about the findings?
@@ -162,7 +162,7 @@ v <- v[numbs]
 
 ```
 ```{r}
-plot(numbs, y, col="blue", pch="o")
+plot(numbs, y, col="blue", pch="o",xlab="Sample Size",ylab="Empirical Power")
 points(numbs, v, col="dark red", pch="*")
 ```
 > Write answer here...
@@ -190,7 +190,7 @@ w <- w[numbs]
 > Write answer here..
 
 ```{r}
-plot(numbs, y, col="blue", pch="o")
+plot(numbs, y, col="blue", pch="o",xlab="Sample Size",ylab="Empirical Power")
 points(numbs, v, col="dark red", pch="*")
 points(numbs, w, col="black", pch="+")
 ```

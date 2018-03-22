@@ -73,19 +73,19 @@ plot(numbs, z)
 #f1() to represent this sequential testing scenario, and repeat the exercises
 #above. What would be the impact on the power and type 1 error?
 
-f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
+f2 <- function(n, piE, piC, numsim = 1000, int.alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE)
   sC <- rbinom(numsim, (0.5*n), piC)
   pvals <- sapply(1:numsim, FUN = function(i) prop.test(x = c(sE[i], sC[i]), n = c((0.5*n), (0.5*n)),
                                                         alternative = "less")$p.value)
   
-  n.signif <- mean(pvals < alpha)
-  fulltrial <- sum((pvals > alpha) == TRUE)
+  n.signif <- mean(pvals < int.alpha)
+  fulltrial <- sum((pvals > int.alpha) == TRUE)
 
   nonsig <- numeric(0)
   
   for(i in 1:numsim){
-    if(pvals[i] < alpha){
+    if(pvals[i] < int.alpha){
      nonsig[i] <- 0
     }
     else{
@@ -106,7 +106,7 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   
   pvals2 <- sapply(1:length(sEt), FUN = function(i) prop.test(x = c(sEt[i], sCt[i]), n = c(n, n),
                                                         alternative = "less")$p.value)
-  n.signif.retrial <- mean(pvals2 < alpha)
+  n.signif.retrial <- mean(pvals2 < 0.025)
   n.signif2 <- (n.signif.retrial*(fulltrial/numsim))
   
   n.signif + n.signif2
@@ -144,7 +144,7 @@ piE <- 0.35
 piC <- 0.4
 y <- NULL
 for (n in numbs){
-  y[n] <- (f2(n, piE, piC, numsim = 1000,alpha=0.001))
+  y[n] <- (f2(n, piE, piC, numsim = 1000,int.alpha=0.001))
 }
 
 y <- y[numbs]
