@@ -52,37 +52,35 @@ First we define an input. Since the power is defined as the probability that we 
 ```{r, results ='hide'}
 piE <- 0.35
 piC <- 0.4
-numbs <- seq(100, 2000, by=100) #defines our sequence for n = (100,200,300,...2000)
+numbs <- seq(100, 2000, by=100) # defines our sequence for n = (100,200,300,...2000)
 y <- NULL
 ```
 
 
 Then we run the given function to determine the power.
+
 ```{r, results ='hide'}
-set.seed(42) #we set a seed so we can fairly compare each simulation
+set.seed(42) # we set a seed so we can fairly compare each simulation
 for (n in numbs){
  y[n] <- (f1(n, piE, piC, numsim = 1000))
 }
 
 y <- y[numbs]
-
 ```
 
-The following plot depicts the power depending on the sample size in each arm of the trial:
+The following plot depicts the power depending on the sample size in each arm of the trial
 
 ```{r}
 plot(numbs, y)
 abline(h=0.8, col="red")
 ```
 
-The red line represents where we expect a power of about .80. This is the case with about XY participants.
+The red line represents where we expect a power of about .80. This is the case with about 1500 participants.
 
 #### Question 2
 **The function f1() can also be used to obtain the empirical type 1 error rate. Run f1() again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
 
-The type 1 error is the incorrect rejection of a true
-null hypothesis. Hence, if the null hypothesis is true piE must be the sam as piC, so
-both 0.4.
+The type 1 error is the incorrect rejection of a true null hypothesis. Hence, if the null hypothesis is true piE must be the sam as piC, so both 0.4.
 
 ```{r, results ='hide'}
 z <- NULL
@@ -105,31 +103,31 @@ plot(numbs, z)
 
 ```{r, results ='hide'}
 f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
-  sE <- rbinom(numsim, (0.5*n), piE) #We only use half the n in each step.
+  sE <- rbinom(numsim, (0.5*n), piE) # We only use half the n in each step.
   sC <- rbinom(numsim, (0.5*n), piC)
   pvals <- sapply(1:numsim, FUN = function(i) prop.test(x = c(sE[i], sC[i]), n = c((0.5*n), (0.5*n)),
                                                         alternative = "less")$p.value)
   
-  n.signif <- mean(pvals < alpha) #percentage of significant p-values
-  fulltrial <- sum((pvals > alpha) == TRUE) ##number of insignificant p-values
+  n.signif <- mean(pvals < alpha) # percentage of significant p-values
+  fulltrial <- sum((pvals > alpha) == TRUE) # number of insignificant p-values
 
   nonsig <- numeric(0)
   
   for(i in 1:numsim){
     if(pvals[i] < alpha){
-     nonsig[i] <- 0 #if the p-value is significant the indicator is set to zero
+     nonsig[i] <- 0 # if the p-value is significant the indicator is set to zero
     }
     else{
      nonsig[i] <- 1 #if it is not the the indicator is set to 1
     }
   }
   
-  r.sE <- nonsig*sE #define a vector with only the non-significant cases
-  r.sE <- r.sE[!r.sE %in% 0] #chose only the unsignificant cases
-  sE2 <- rbinom(fulltrial, (0.5*n), piE) #simulate the second half of the non-significant trial
-  sEt <- (r.sE+sE2)#combiningthe halves
+  r.sE <- nonsig*sE # define a vector with only the non-significant cases
+  r.sE <- r.sE[!r.sE %in% 0] # chose only the unsignificant cases
+  sE2 <- rbinom(fulltrial, (0.5*n), piE) # simulate the second half of the non-significant trial
+  sEt <- (r.sE+sE2)# combiningthe halves
   
-  #same procedure for the control groups
+  # same procedure for the control groups
   r.sC <- nonsig*sC
   r.sC <- r.sC[!r.sC %in% 0]
   sC2 <- rbinom(fulltrial, (0.5*n), piE)
@@ -146,7 +144,7 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
 set.seed(42)
 f2(1500, piE, piC, numsim = 1000) # 0.549
 f1(1500, piE, piC, numsim = 1000) # 0.792
-#power drops quite a bit..
+# power drops quite a bit..
 
 piE <- 0.35
 piC <- 0.4
