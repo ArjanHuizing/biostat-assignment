@@ -101,7 +101,7 @@ plot(numbs, z)
 #### Question 3
 **Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same ?? of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
-```{r, results ='hide'}
+```{r}
 f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE) # We only use half the n in each step.
   sC <- rbinom(numsim, (0.5*n), piC)
