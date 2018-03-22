@@ -105,7 +105,7 @@ plot(numbs, z)
 
 #### Question 3
 
-**Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same ?? of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
+**Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same alpha of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
 ```{r}
 f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
@@ -124,14 +124,14 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
      nonsig[i] <- 0 # if the p-value is significant the indicator is set to zero
     }
     else{
-     nonsig[i] <- 1 #if it is not the the indicator is set to 1
+     nonsig[i] <- 1 #if it is not the indicator is set to 1
     }
   }
   
   r.sE <- nonsig*sE # define a vector with only the non-significant cases
   r.sE <- r.sE[!r.sE %in% 0] # chose only the unsignificant cases
   sE2 <- rbinom(fulltrial, (0.5*n), piE) # simulate the second half of the non-significant trial
-  sEt <- (r.sE+sE2)# combiningthe halves
+  sEt <- (r.sE+sE2)# combining the halves
   
   # same procedure for the control groups
   r.sC <- nonsig*sC
@@ -148,9 +148,8 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
 }
 
 set.seed(42)
-f2(1500, piE, piC, numsim = 1000) # 0.549
-f1(1500, piE, piC, numsim = 1000) # 0.792
-# power drops quite a bit..
+f2(1500, piE, piC, numsim = 1000)
+f1(1500, piE, piC, numsim = 1000) 
 
 piE <- 0.35
 piC <- 0.4
@@ -169,7 +168,7 @@ y
 
 #### Question 4
 
-**What is the impact of choosing ??=0.001 for the interim analysis (i.e. only halting the trial early if the evidence in favour of the experimental treatment is very clear)?**
+**What is the impact of choosing alpha = 0.001 for the interim analysis (i.e. only halting the trial early if the evidence in favour of the experimental treatment is very clear)?**
 
 ```{r, results ='hide'}
 piE <- 0.35
@@ -178,7 +177,7 @@ y <- NULL
 
 set.seed(42)
 for (n in numbs){
-  y[n] <- (f2(n, piE, piC, numsim = 1000,alpha=0.001))
+  y[n] <- (f2(n, piE, piC, numsim = 1000, alpha=0.001))
 }
 
 y <- y[numbs]
