@@ -50,24 +50,24 @@ f1 <- function(n, piE, piC, numsim = 1000){
 ```{r, message=FALSE}
 piE <- 0.35
 piC <- 0.4
-seq(100, 2000, by=100)
+numbs <- seq(100, 2000, by=100)
 y <- NULL
-for (n in seq(100, 2000, by=100)){
+for (n in numbs){
  y[n] <- (f1(n, piE, piC, numsim = 1000))
-  }
+}
 
 f1(100, piE, piC, numsim = 1000) #0.092
 f1(200, piE, piC, numsim = 1000) #0.146
 f1(300, piE, piC, numsim = 1000) #0.222
 
-y <- y[seq(100, 2000, by=100)]
+y <- y[numbs]
 y
 ```
 
 Our plot:
 
 ```{r}
-plot(seq(100, 2000, by=100), y)
+plot(numbs, y)
 abline(h=0.8, col="red")
 ```
 
@@ -77,17 +77,17 @@ abline(h=0.8, col="red")
 
 ```{r, message = FALSE}
 z <- NULL
-for (n in seq(100, 2000, by = 100)){
+for (n in numbs){
   z[n] <- (f1(n, 0.4, 0.4, numsim = 1000))
 }
-z <- z[seq(100, 2000, by = 100)]
+z <- z[numbs]
 z
 ```
 
 And another plot:
 
 ```{r}
-plot(seq(100, 2000, by = 100), z)
+plot(numbs, z)
 ```
 
 
@@ -95,7 +95,7 @@ plot(seq(100, 2000, by = 100), z)
 **Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same ?? of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
 ```{r, message=FALSE}
-f2 <- function(n, piE, piC, numsim = 1000,alpha=0.025){
+f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE)
   sC <- rbinom(numsim, (0.5*n), piC)
   pvals <- sapply(1:numsim, FUN = function(i) prop.test(x = c(sE[i], sC[i]), n = c((0.5*n), (0.5*n)),
@@ -131,8 +131,7 @@ f2 <- function(n, piE, piC, numsim = 1000,alpha=0.025){
   n.signif.retrial <- mean(pvals2 < alpha)
   n.signif2 <- (n.signif.retrial*(fulltrial/numsim))
   
-  n.signif+n.signif2
-  
+  n.signif + n.signif2
 }
 
 f2(1500, piE, piC, numsim = 1000) # 0.549
@@ -154,7 +153,7 @@ y
 Guess what, one more plot!
 
 ```{r}
-plot(seq(100, 2000, by = 100), y)
+plot(numbs, y)
 abline(h=0.8, col="red")
 ```
 
@@ -165,20 +164,19 @@ abline(h=0.8, col="red")
 ```{r, message=FALSE}
 piE <- 0.35
 piC <- 0.4
-seq(100,2000,by=100)
 y <- NULL
-for (n in seq(100,2000,by=100)){
+for (n in numbs){
   y[n] <- (f2(n, piE, piC, numsim = 1000,alpha=0.001))
 }
 
-y <- y[seq(100, 2000, by = 100)]
+y <- y[numbs]
 y
 ```
 
 Okay, one last plot..
 
 ```{r}
-plot(seq(100, 2000, by = 100), y)
+plot(numbs, y)
 abline(h=0.8, col="red")
 ```
 

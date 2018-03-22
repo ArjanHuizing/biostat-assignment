@@ -27,21 +27,21 @@ f1 <- function(n, piE, piC, numsim = 1000){
   
 piE <- 0.35
 piC <- 0.4
-seq(100,2000,by=100)
+numbs <- seq(100, 2000, by=100)
 y <- NULL
-for (n in seq(100,2000,by=100)){
+for (n in numbs){
  y[n] <- (f1(n, piE, piC, numsim = 1000))
-  }
+}
 
 f1(100, piE, piC, numsim = 1000) #0.092
 f1(200, piE, piC, numsim = 1000) #0.146
 f1(300, piE, piC, numsim = 1000) #0.222
 
-y <- y[seq(100,2000,by=100)]
+y <- y[numbs]
 y
 
-plot(seq(100,2000,by=100),y)
-abline(h=0.8,col="red")
+plot(numbs, y)
+abline(h=0.8, col="red")
 
 
 #####QUESTION 2######
@@ -55,12 +55,12 @@ abline(h=0.8,col="red")
 #both 0.4
 
 z <- NULL
-for (n in seq(100,2000,by=100)){
+for (n in numbs){
   z[n] <- (f1(n, 0.4, 0.4, numsim = 1000))
 }
-z <- z[seq(100,2000,by=100)]
+z <- z[numbs]
 z
-plot(seq(100,2000,by=100),z)
+plot(numbs, z)
 
 
 #####QUESTION 3######
@@ -73,7 +73,7 @@ plot(seq(100,2000,by=100),z)
 #f1() to represent this sequential testing scenario, and repeat the exercises
 #above. What would be the impact on the power and type 1 error?
 
-f2 <- function(n, piE, piC, numsim = 1000,alpha=0.025){
+f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   sE <- rbinom(numsim, (0.5*n), piE)
   sC <- rbinom(numsim, (0.5*n), piC)
   pvals <- sapply(1:numsim, FUN = function(i) prop.test(x = c(sE[i], sC[i]), n = c((0.5*n), (0.5*n)),
@@ -109,8 +109,7 @@ f2 <- function(n, piE, piC, numsim = 1000,alpha=0.025){
   n.signif.retrial <- mean(pvals2 < alpha)
   n.signif2 <- (n.signif.retrial*(fulltrial/numsim))
   
-  n.signif+n.signif2
-  
+  n.signif + n.signif2
 }
 
 f2(1500, piE, piC, numsim = 1000) # 0.549
@@ -128,8 +127,8 @@ for (n in seq(100,2000,by=100)){
 y <- y[seq(100,2000,by=100)]
 y
 
-plot(seq(100,2000,by=100),y)
-abline(h=0.8,col="red")
+plot(numbs, y)
+abline(h=0.8, col="red")
 
 #####QUESTION 4######
 
@@ -140,14 +139,13 @@ abline(h=0.8,col="red")
 
 piE <- 0.35
 piC <- 0.4
-seq(100,2000,by=100)
 y <- NULL
-for (n in seq(100,2000,by=100)){
+for (n in numbs){
   y[n] <- (f2(n, piE, piC, numsim = 1000,alpha=0.001))
 }
 
-y <- y[seq(100,2000,by=100)]
+y <- y[numbs]
 y
 
-plot(seq(100,2000,by=100),y)
-abline(h=0.8,col="red")
+plot(numbs, y)
+abline(h=0.8, col="red")
