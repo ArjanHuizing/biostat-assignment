@@ -112,9 +112,12 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   n.signif + n.signif2
 }
 
-f2(1500, piE, piC, numsim = 1000) # 0.549
-f1(1500, piE, piC, numsim = 1000) # 0.792
-#power drops quite a bit..
+f2(1500, piE, piC, numsim = 1000)
+f1(1500, piE, piC, numsim = 1000)
+#Power is slightly higher on f2.
+#simulated 1000x
+#f1 mean power = .7967
+#f2 mean power = .8181
 
 piE <- 0.35
 piC <- 0.4
