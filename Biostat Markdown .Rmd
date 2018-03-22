@@ -76,6 +76,8 @@ abline(h=0.8, col="red")
 
 > For a power of .80, we will need about 1500 participants.
 
+***
+
 #### Question 2
 
 **The function f1() can also be used to obtain the empirical type 1 error rate. Run f1() again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
@@ -97,6 +99,9 @@ This plot shows our type 1 error depending on the sample size.
 plot(numbs, z)
 ```
 
+> Maybe say something about the findings?
+
+***
 
 #### Question 3
 
@@ -159,6 +164,8 @@ y
 ```
 
 > Write answer here...
+
+***
 
 #### Question 4
 
