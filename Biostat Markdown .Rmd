@@ -1,0 +1,17 @@
+---
+title: "Biomedical Statistics"
+author: "Katalin Roth"
+date: "3/22/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<center> <h1>Introduction to Clinical Trials: Exercise 2</h1> </center>
+
+#### Question 1
+*Run f1() for n=100,200,300,...,2000. Store the output and plot the power curve. Note: warning messages due to low expected values can be ignored. Based on this initial assessment, how many subjects are (approximately) needed in each treatment arm to obtain a power of 0.80?*
+
+
