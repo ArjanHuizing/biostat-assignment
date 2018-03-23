@@ -1,7 +1,7 @@
 ---
 title: "Biomedical Statistics"
 author: "Katalin Roth, Anna Lohmann, Arjan Huizing"
-date: "3/22/2018"
+date: "23 March, 2018"
 output: html_document
 ---
 
@@ -170,7 +170,7 @@ legend("bottomright", inset=.05,
   	c("y","v"), fill=c("blue", "dark red"), horiz=FALSE)
 ```
 
-> Write answer here...
+> The power is sligthly higher. 
 
 ***
 
@@ -201,4 +201,4 @@ legend("bottomright", inset=.05,
   	c("y","v", "w"), fill=c("blue", "dark red", "black"), horiz=FALSE)
 ```
 
-> Write answer here..
+> The power is lower for smaller n and bigger for bigger n. 
