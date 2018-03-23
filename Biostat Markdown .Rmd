@@ -83,7 +83,7 @@ abline(h=0.8, col="red")
 
 **The function f1( ) can also be used to obtain the empirical type 1 error rate. Run f1( ) again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
 
-The type 1 error is the incorrect rejection of a true null hypothesis. Hence, if the null hypothesis is true piE must be the sam as piC, so both 0.4.
+The type 1 error is the incorrect rejection of a true null hypothesis. Hence, if the null hypothesis is true piE must be the same as piC, so both 0.4.
 
 ```{r, results ='hide'}
 z <- NULL
@@ -100,7 +100,11 @@ This plot shows our type 1 error depending on the sample size.
 plot(numbs, z, xlab="Sample Size", ylab="False Rejection Rate")
 ```
 
-> We see that the Type 1 error is very dependent on the sample size and can vary when the sample size changes. 
+```{r}
+plot(numbs, z, xlab="Sample Size", ylab="False Rejection Rate", ylim = c(0, 1))
+```
+
+> We see that the Type 1 error does not depend on sample size, it randomly varies. 
 
 ***
 
@@ -116,7 +120,7 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
                                                         alternative = "less")$p.value)
   
   n.signif <- mean(pvals < alpha) # percentage of significant p-values
-  fulltrial <- sum((pvals > alpha) == TRUE) # number of insignificant p-values
+  fulltrial <- sum((pvals > alpha) == TRUE) # total number of insignificant p-values
 
   nonsig <- numeric(0)
   
@@ -132,9 +136,9 @@ f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
   r.sE <- nonsig*sE # define a vector with only the non-significant cases
   r.sE <- r.sE[!r.sE %in% 0] # chose only the unsignificant cases
   sE2 <- rbinom(fulltrial, (0.5*n), piE) # simulate the second half of the non-significant trial
-  sEt <- (r.sE+sE2)# combining the halves
+  sEt <- (r.sE+sE2) # combining the halves
   
-  # same procedure for the control groups
+  # same procedure for the control group
   r.sC <- nonsig*sC
   r.sC <- r.sC[!r.sC %in% 0]
   sC2 <- rbinom(fulltrial, (0.5*n), piC)
@@ -167,7 +171,7 @@ v <- v[numbs]
 plot(numbs, y, col="blue", pch="o", xlab="Sample Size", ylab="Empirical Power")
 points(numbs, v, col="dark red", pch="*")
 legend("bottomright", inset=.05,
-  	c("y","v"), fill=c("blue", "dark red"), horiz=FALSE)
+  	c("Full","Interim"), fill=c("blue", "dark red"), horiz=FALSE)
 ```
 
 > The power is sligthly higher. 
@@ -198,7 +202,7 @@ plot(numbs, y, col="blue", pch="o", xlab="Sample Size", ylab="Empirical Power")
 points(numbs, v, col="dark red", pch="*")
 points(numbs, w, col="black", pch="+")
 legend("bottomright", inset=.05,
-  	c("y","v", "w"), fill=c("blue", "dark red", "black"), horiz=FALSE)
+  	c("Full","Interim", "Interim Strict"), fill=c("blue", "dark red", "black"), horiz=FALSE)
 ```
 
-> The power is lower for smaller n and bigger for bigger n. 
+> Doing an interim analysis of the significance, increases the power sligthly, since it removes the possibility that a trial becomes unsignificant in the second half. In case the interim analysis is very strict, this effect is diminished.  
