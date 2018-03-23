@@ -100,6 +100,8 @@ This plot shows our type 1 error depending on the sample size.
 plot(numbs, z, xlab="Sample Size", ylab="False Rejection Rate")
 ```
 
+Now we have adjusted the y-axis to show that the difference is negligible. 
+
 ```{r}
 plot(numbs, z, xlab="Sample Size", ylab="False Rejection Rate", ylim = c(0, 1))
 ```
