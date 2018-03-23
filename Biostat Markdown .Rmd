@@ -47,7 +47,7 @@ f1 <- function(n, piE, piC, numsim = 1000){
 
 #### Question 1
 
-**Run f1() for n=100,200,300,...,2000. Store the output and plot the power curve. Note: warning messages due to low expected values can be ignored. Based on this initial assessment, how many subjects are (approximately) needed in each treatment arm to obtain a power of 0.80?**
+**Run f1( ) for n=100,200,300,...,2000. Store the output and plot the power curve. Note: warning messages due to low expected values can be ignored. Based on this initial assessment, how many subjects are (approximately) needed in each treatment arm to obtain a power of 0.80?**
 
 First we define an input. Since the power is defined as the probability that we will reject a false null hypothesis. We have to set the input such that the alternative hypothesis is true.
 
@@ -81,7 +81,7 @@ abline(h=0.8, col="red")
 
 #### Question 2
 
-**The function f1() can also be used to obtain the empirical type 1 error rate. Run f1() again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
+**The function f1( ) can also be used to obtain the empirical type 1 error rate. Run f1( ) again, this time to determine the empirical type 1 error rate, for the same values of n. Again, generate a plot to visualize the results.**
 
 The type 1 error is the incorrect rejection of a true null hypothesis. Hence, if the null hypothesis is true piE must be the sam as piC, so both 0.4.
 
@@ -106,7 +106,7 @@ plot(numbs, z, xlab="Sample Size", ylab="False Rejection Rate")
 
 #### Question 3
 
-**Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same alpha of 0.025 is used in both tests? Adjust f1() to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
+**Now suppose that, for ethical and/or logistical reasons, the investigator wants to be able to halt the trial if the observed difference already is significant after observing the outcomes for half of the subjects (if it is not significant at that point, the trial is to be continued until all 2n subjects are included). Assuming that the same alpha of 0.025 is used in both tests? Adjust f1( ) to represent this sequential testing scenario, and repeat the exercises above. What would be the impact on the power and type 1 error?**
 
 ```{r}
 f2 <- function(n, piE, piC, numsim = 1000, alpha=0.025){
